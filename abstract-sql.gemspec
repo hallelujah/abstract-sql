@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = Abstract::Sql::VERSION
   s.authors     = ["Hallelujah"]
   s.email       = ["hery@rails-royce.org"]
-  s.homepage    = "https://github.com/hallelujah/sql-abstract"
+  s.homepage    = "https://github.com/hallelujah/abstract-sql"
   s.summary     = %q{Transform a SQL statement to Perl SQL::Abstract JSON format}
   s.description = %q{It reverse an SQL statement to a Perl SQL::Abstract JSON format.}
 
