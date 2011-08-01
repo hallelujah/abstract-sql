@@ -5,13 +5,20 @@ require "abstract-sql/version"
 Gem::Specification.new do |s|
   s.name        = "abstract-sql"
   s.version     = Abstract::Sql::VERSION
-  s.authors     = ["Hery Ramihajamalala"]
-  s.email       = ["hery@weborama.com"]
-  s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.authors     = ["Hallelujah"]
+  s.email       = ["hery@rails-royce.org"]
+  s.homepage    = "https://github.com/hallelujah/sql-abstract"
+  s.summary     = %q{Transform a SQL statement to Perl SQL::Abstract JSON format}
+  s.description = %q{It reverse an SQL statement to a Perl SQL::Abstract JSON format.}
 
   s.rubyforge_project = "abstract-sql"
+
+
+  s.add_dependency 'parslet'
+  s.add_development_dependency 'test-unit', '>= 2.1.0'
+  s.add_development_dependency 'rcov'
+  s.add_development_dependency 'rake'
+
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
