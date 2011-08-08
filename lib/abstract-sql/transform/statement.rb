@@ -20,6 +20,11 @@ module SQL
         { String(z).to_sym => { operator(op) => x } } 
       end
 
+      # Very simple criterion
+      rule({:lstatement => subtree(:l)}) do
+        l
+      end
+
       # Statement right or left without right leaf
       rule(:lstatement => { :lstatement => subtree(:y) })do
         {:lstatement => y } 
@@ -49,7 +54,6 @@ module SQL
       rule({:rstatement => subtree(:r), :boolean_operator=> simple(:op), :lstatement=>{:lstatement=>subtree(:l)}}) do
         {:lstatement => l, :boolean_operator => operator(op), :rstatement => r} 
       end
-
 
       rule(:boolean_operator => simple(:op), :lstatement => subtree(:l), :rstatement => subtree(:r) ) do 
         {operator(op) => [l, r] } 

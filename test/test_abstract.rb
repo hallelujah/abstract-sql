@@ -6,9 +6,16 @@ class TestAbstract < Test::Unit::TestCase
     @abstract = SQL::Abstract.new
   end
 
+
+  test "parse very simple condition" do
+    assert_equal({ :criterion_13 => {:"-<=" => 8} }, @abstract.parse("criterion_13 <= 8"))
+    assert_equal({ :criterion_13 => {:"-<=" => 8} }, @abstract.parse("(criterion_13 <= 8)"))
+  end
+
   test "parse a simple condition" do
     assert_equal( {:"-and" => [{:id => { :"-=" => 1}}, {:label => {:"-like" => '%webo%'}}]}, @abstract.parse("id = 1 and label like '%webo%'"))
     assert_equal( {:"-and" => [{:id => { :"-=" => 1}}, {:label => {:"-like" => '%webo%'}}]}, @abstract.parse("((id = 1 )) and label like '%webo%'"))
+    assert_equal({:"-and" => [{ :criterion_13 => {:"-<=" => 8} },{ :age => {:"->=" => 5} }]}, @abstract.parse("(criterion_13 <= 8) and age >= 5"))
   end
 
   test "parse a complex condition" do
@@ -33,7 +40,6 @@ class TestAbstract < Test::Unit::TestCase
     },
       @abstract.parse("( criterion_7 >= 8 or criterion_1 < 8 ) and ( segment_1 < 4 or not segment_2 < 1 )")
     )
-    
   end
 
   test "raise error when bad formatted sql" do
