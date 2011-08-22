@@ -10,6 +10,7 @@ class TestAbstract < Test::Unit::TestCase
   test "parse very simple condition" do
     assert_equal({ :criterion_13 => {:"-<=" => 8} }, @abstract.parse("criterion_13 <= 8"))
     assert_equal({ :criterion_13 => {:"-<=" => 8} }, @abstract.parse("(criterion_13 <= 8)"))
+    assert_equal({ :"-not_bool" => { :criterion_13 => {:"-<=" => 8} } }, @abstract.parse("not (criterion_13 <= 8)"))
   end
 
   test "parse a simple condition" do
@@ -19,13 +20,13 @@ class TestAbstract < Test::Unit::TestCase
   end
 
   test "parse a complex condition" do
-    assert_equal( 
+    assert_equal(
                  {
       :"-or" => [
         {:"-and" => [{:id => { :"-=" => 1}}, {:label => {:"-like" => '%webo%'}}]},
         {:"-and" => [{:id => { :"-!=" => 1}}, {:label => {:"-like" => '%api%'}}]}
     ]
-    }, 
+    },
       @abstract.parse("(id = 1 AND label like '%webo%') OR (id !=1 and label like '%api%')")
                 )
   end

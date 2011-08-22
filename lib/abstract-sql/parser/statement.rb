@@ -9,7 +9,7 @@ module SQL
       rule(:spaces?){ spaces.maybe}
       rule(:digit) { match('[0-9]') }
       rule(:int){ digit.repeat(1).as(:int) }
-      rule(:bool_not) { spaces >> (str('not') | str('NOT')).as(:not) >> spaces}
+      rule(:bool_not) { spaces? >> (str('not') | str('NOT')).as(:not) >> spaces?}
 
       rule(:float) do
         (str('-').maybe >> (
@@ -48,7 +48,7 @@ module SQL
       end
 
       rule(:entity) do
-        bool_not.maybe >> (value.as(:lvalue) >> operator >> value.as(:rvalue))
+        bool_not.maybe >> ((lparen >> entity >> rparen) | (value.as(:lvalue) >> operator >> value.as(:rvalue)))
       end
 
       rule(:statement) do
